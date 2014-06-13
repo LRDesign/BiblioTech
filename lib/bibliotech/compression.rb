@@ -1,3 +1,5 @@
+require 'caliph'
+
 module BiblioTech
   class Compression
 
@@ -21,6 +23,18 @@ module BiblioTech
         return generator if klass.nil?
         klass.new(generator)
       end
+    end
+
+    def compressor
+      Caliph::CommandLine.new(compression_executable)
+    end
+
+    def decompressor(filename)
+      Caliph::CommandLine.new(decompression_executable, decompression_options + filename)
+    end
+
+    def decompression_options
+      []
     end
 
     def initialize(generator)
